@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url(https://cdn.pixabay.com/photo/2020/03/25/21/05/pizza-4968645_1280.jpg);
+        background-size: 100% 100%;
+        position: relative;
+        width: auto;
+        background-repeat: no-repeat;
+    }
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+</style>
+<script>
+    function myFunction() {
+    var x = document.getElementById("myInput");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+</script>
+
+
+<nav class="navbar navbar-dark bg-dark" style="color: blueviolet;">
+    <div class="container-fluid">
+        <a class="navbar-brand" style="display: block; margin: auto; padding-left: 120px;">Welcome To Login Page</a>
+        <a href="/home/" class="btn btn-danger">SignUp</a> 
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="container" 
+        style="position: relative; 
+        /* text-align: center;  */
+        width: 400px; height: auto;
+        background-color: darkcyan; 
+        border-radius: 10px; 
+        margin-top: 150px; 
+        padding: 20px; 
+        top: 20px; right: 20px; left: 20px;">
+        <form method="POST" action="/customer/authenticate/">
+            {% csrf_token %}
+            <h1 style="color: white; margin-bottom: 30px; text-align: center;">Login</h1>
+            <div class="input-group flex-nowrap" style="margin-bottom: 15px;">
+                <span class="input-group-text" id="addon-wrapping">Username</span>
+                <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+            </div>
+            <div class="input-group flex-nowrap" style="margin-bottom: 15px;">
+                <span class="input-group-text" id="addon-wrapping">Password&nbsp;</span>
+                <input type="password" id="myInput" name="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
+            </div>
+            <div class="container" style="margin-bottom: 15px; color: white;">
+                <input type="checkbox" onclick="myFunction()"> Show Password
+            </div>
+            <input type="submit" class="btn btn-success" style="display: block; margin: auto;" name="">
+        </form>
+        {% for message in messages %}
+            <p style="text-align: center; color: azure; margin-top: 20px; margin-bottom: 0%; font-weight: bold;">{{message}}</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body {
+        background-image: linear-gradient(to bottom, #2a2a2a, #2C3A47, #6c757d);
+        background-size: 100% 100%;
+        position: relative;
+        background-repeat: no-repeat;
+    }
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+</style>
+<div class="container-fluid" style="text-align: center; margin-top: 20%; ">
+    {% for message in messages %}
+    <p style="text-align: center; 
+        color: white;  
+        background-color: green; 
+        border-radius: 5px; 
+        width: 415px;
+        margin: auto;
+        font-size: 1.6em;
+        ">{{message}}</p>
+    {% endfor %}
+    <form method="POST" action="/updatepizza/{{pizzapk}}/update/" style="margin-top: 2%;">
+        {% csrf_token %}
+        <input type="text" class="form-control" name="pizzz_name_update" placeholder="Pizza"
+            style="outline: none; width: 200px; display: inline; margin-right: 10px;">
+        <input type="text" class="form-control" min="0" name="pizzz_price_update" placeholder="Price"
+            style="outline: none; width: 200px; display: inline;"><br>
+        <input type="submit" value="Update" name="" class="btn btn-success"
+                style="padding: 5px; padding-top: 4px; outline: none; width: 415px; margin-top: 2%;">
+    </form>
+</div>
+
+{% endblock %}

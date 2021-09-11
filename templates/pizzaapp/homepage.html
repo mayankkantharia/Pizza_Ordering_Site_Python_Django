@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url(https://cdn.pixabay.com/photo/2020/03/25/21/05/pizza-4968645_1280.jpg);
+        background-size: 100% 100%;
+        position: relative;
+        width: auto;
+        background-repeat: no-repeat;
+    }
+
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+</style>
+<nav class="navbar navbar-dark bg-dark" 
+    style="color: blueviolet; ">
+    <div class="container-fluid">
+        <a class="navbar-brand" style="display: block; margin: auto; padding-left: 100px;">Welcome To SignUp Page</a>
+        <a href="/loginuser/" class="btn btn-danger">Login</a> 
+    </div>
+</nav>
+
+<div class="container-fluid" >
+
+    <div class="container" style="
+        height: auto; width: 30%; min-width: 300px;
+        background-color: darkcyan; 
+        top: 100px; right: 20px; left: 20px; 
+        position: relative; border-radius: 10px; padding: 30px;">
+        <h1 style="text-align: center; margin-bottom: 30px; color: white;">Sign Up</h1>
+        <form method="POST" action="/signupuser/">
+            {% csrf_token %}
+            <input class="form-control" style="margin-bottom: 15px;" placeholder="Username" type="text" name="username">
+            <input class="form-control" style="margin-bottom: 15px;" placeholder="Password" type="password"
+                name="password">
+            <input class="form-control" style="margin-bottom: 15px;" placeholder="Phone number" type="text" name="phoneno">
+            <input class="form-control" style="margin-bottom: 30px;" placeholder="Address" type="text" name="address">
+            <input class="btn btn-success" style="display: block; margin: auto;" value="Register" type="submit" name="">
+        </form>
+        
+        {% for message in messages %}
+        <p style="text-align: center; color: white; margin-top: 20px; margin-bottom: 0%; font-weight: bold;">{{message}}</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

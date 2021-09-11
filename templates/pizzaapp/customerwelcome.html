@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9)), url(https://cdn.pixabay.com/photo/2020/03/25/21/05/pizza-4968645_1280.jpg);
+        background-size: 100% 100%;
+        position: relative;
+        width: auto;
+        background-repeat: no-repeat;
+    }
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+    .menu_table_customer::-webkit-scrollbar,
+    div::-webkit-scrollbar {
+        width: 12px;
+    }
+    /* .menu_table::-webkit-scrollbar-track,
+    div::-webkit-scrollbar-track {
+        border: 7px solid black;
+        box-shadow: inset 0 0 2.5px 2px rgba(0, 0, 0, 0.5);
+    } */
+    .menu_table_customer::-webkit-scrollbar-thumb,
+    div::-webkit-scrollbar-thumb {
+        background: linear-gradient(0deg, rgb(92,184,92) 15%, rgb(241, 46, 46) 95%);
+        border-radius: 6px;
+    }
+    .menu_table_customer::-webkit-scrollbar-thumb:hover,
+    div::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(0deg, rgb(241, 46, 46) 15%, rgb(92,184,92) 95%);
+    }
+</style>
+
+<nav class="navbar navbar-dark bg-dark" style="background-color: #2a2a2a; 
+    background-image: linear-gradient(to bottom, #2C3A47, #2a2a2a, #2C3A47);
+    background-size: 100% 100%; 
+    background-repeat: no-repeat;
+    height: 100%;">
+    <div class="container-fluid">
+        <a class="navbar-brand">Welcome {{username}} </a>
+        <div>
+            <a class="btn btn-secondary" href="/userorders/" style="margin-right: 5px;">My Orders</a>
+            <a class="btn btn-danger" href="/userlogout/">Logout</a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    {% for message in messages %}
+    <p style="text-align: center; 
+        color: white;  
+        background-color: green; 
+        border-radius: 5px; 
+        width: 700px;
+        margin: auto;
+        margin-top: 20px;
+        font-size: 1.6em;
+        animation: normal;
+        animation-duration: 3s;
+        ">{{message}}</p>
+    {% endfor %}
+
+    <form method="POST" action="/placeorder/">
+        {% csrf_token %}
+        <br>
+        <table style="width: 44%; min-width: 500px; color: white; margin: auto;">
+            <tr>
+                <th style="width: 300px">
+                    <h3>Name</h3>
+                </th>
+                <th  style="width: 200px">
+                    <h3>Price</h3>
+                </th>
+                <th style="padding-left: 15px;">
+                    <h3>Quantity</h3>
+                </th>
+            </tr>
+            </table>
+        <div class="container menu_table_customer" style=" 
+            margin: auto; 
+            width: 45%; min-width: 500px; height: 500px;
+            text-align: left;
+            overflow: auto;
+            ">
+            <table style="width: 100%; color: white;">
+                {% for pizza in pizzas %}
+                <tr>
+                    <td style="width: 300px">
+                        <h5>{{pizza.name}}</h5>
+                    </td>
+                    <td style="text-align: left; width: 200px;">
+                        <h5>{{pizza.price}}</h5>
+                    </td>
+                    <td style="text-align: center; padding-bottom: 10px; " ><input type="number" min="0" max="15" value="0" name={{pizza.id}}
+                             name="quantity"></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="container" style=" 
+            margin: auto; 
+            width: 680px; 
+            text-align: left;
+            ">
+            <!-- <input type="text" style="width: 45%; outline: none; min-width: 500px; height: 36px; margin-top: 20px; border-radius: 5px;" name="address"
+                placeholder="Address"> -->
+            <input type="submit" style="float: right; outline: none; margin-top: 20px;" class="btn btn-success" value="Place Order"
+                name="">
+        </div>
+    </form>
+</div>
+
+{% endblock %}

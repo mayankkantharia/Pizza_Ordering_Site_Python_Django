@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    body {
+        background-image: linear-gradient(to bottom, #000000, #2C3A47, #000000);
+        background-size: 100% 100%;
+        position: relative;
+        width: auto;
+        background-repeat: no-repeat;
+    }
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+</style>
+
+<div class="container-fluid" 
+    >
+    <div class="container" 
+        style="position: absolute; 
+        text-align: center; 
+        width: 400px; height: auto;
+        background-color: darkcyan; 
+        border-radius: 10px; 
+        margin-top: 200px; 
+        padding: 20px; 
+        top: 20px; right: 20px; left: 20px;">
+
+        <h1 style="color: white; text-align: center;">Admin Login</h1>
+
+        <form method="post" action="/adminauthenticate/">
+            {% csrf_token %}
+            <input type="text" style="margin-top: 15px; margin-bottom: 15px;" class="form-control" placeholder="username" name="username">
+            <input type="password" class="form-control" placeholder="password" name="password">
+            <input type="submit" style="display: block; margin: auto; margin-top: 20px;" class="btn btn-success" name="">
+        </form>
+        {% for message in messages %}
+            <p style="text-align: center; margin-top: 20px; color: yellow;">{{message}}</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

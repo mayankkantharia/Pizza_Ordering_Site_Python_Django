@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    body {
+        background-image: linear-gradient(to bottom, #2a2a2a, #2C3A47, #6c757d);
+        background-size: 100% 100%;
+        position: relative;
+        background-repeat: no-repeat;
+    }
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+    .menu_table_admin::-webkit-scrollbar,
+    div::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    /* .menu_table_admin::-webkit-scrollbar-track,
+    div::-webkit-scrollbar-track {
+        border: 7px solid black;
+        box-shadow: inset 0 0 2.5px 2px rgba(0, 0, 0, 0.5);
+    } */
+    .menu_table_admin::-webkit-scrollbar-thumb,
+    div::-webkit-scrollbar-thumb {
+        background: linear-gradient(0deg, rgb(92, 184, 92) 15%, rgb(241, 46, 46) 95%);
+        border-radius: 6px;
+    }
+
+    .menu_table_admin::-webkit-scrollbar-thumb:hover,
+    div::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(0deg, rgb(241, 46, 46) 15%, rgb(92, 184, 92) 95%);
+    }
+</style>
+
+<nav class="navbar navbar-dark bg-dark" style="background-color: #2a2a2a; 
+    background-image: linear-gradient(to bottom, #2C3A47, #2a2a2a, #2C3A47);
+    background-size: 100% 100%; 
+    background-repeat: no-repeat;
+    height: 100%;">
+    <div class="container-fluid">
+        <a class="navbar-brand">Welcome Admin</a>
+        <div>
+            <a class="btn btn-secondary" href="/adminorders/" style="margin-right: 5px;">All Orders</a>
+            <a class="btn btn-danger" href="/adminlogout/">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    {% for message in messages %}
+    <div class="container" style="margin: auto;">
+        <p style="text-align: center; 
+        color: white;  
+        background-color: green; 
+        border-radius: 5px; 
+        width: 450px;    
+        margin: auto;
+        ">{{message}}</p>
+    </div>
+    {% endfor %}
+    <form method="post" action="/addpizza/">
+        {% csrf_token %}
+        <div class="container"
+            style="display: block; padding-top: 1%; padding-bottom: 1%; width: 500px;padding-left: 50px;">
+            <input type="text" class="form-control" placeholder="name" name="pizza"
+                style="outline: none; width: 200px; display: inline; margin-right: 10px;">
+            <input type="text" class="form-control" placeholder="price" name="price"
+                style="width: 200px; display: inline; margin-right: 10px; outline: none;">
+            <input type="submit" value="Add" name="" class="btn btn-success"
+                style="padding: 5px; padding-top: 4px; outline: none; width: 415px; margin-top: 2%;">
+        </div>
+    </form>
+    <div class="container" style=" color: white; 
+        width: 45%; min-width: 600px;
+        margin: auto;
+        padding: 20px;
+        padding-bottom: 0;
+        background-color: black; 
+        border-top-left-radius: 5px; border-top-right-radius: 5px;
+        ">
+        <table style="width: 100%; color: white;">
+            <tr>
+                <th style="width: 250px;">
+                    <h3>Name</h3>
+                </th>
+                <th style="width: 100px;">
+                    <h3>Price</h3>
+                </th>
+                <th style="width: 120px; padding-left: 15px;">
+                    <h3>Delete</h3>
+                </th>
+                <th style="width: 120px;">
+                    <h3>Update</h3>
+                </th>
+            </tr>
+        </table>
+    </div>
+
+    <div class="container menu_table_admin" 
+        style="width: 45%; min-width: 600px; height: 450px; 
+        display: block; 
+        background-image: linear-gradient(to bottom,black, #2a2a2a); 
+        border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;
+        padding: 20px;
+        overflow: auto;
+        scroll-behavior:smooth;">
+        <table style="width: 100%; color: white;">
+
+            {% for pizza in pizzas %}
+            <tr>
+                <td style="width: 250px;">{{pizza.name}}</td>
+                <td style="width: 100px; text-align: center;">{{pizza.price}}</td>
+                <td style="text-align: center; padding-bottom: 5px; padding-top: 5px; width: 120px;"><a
+                        href="/deletepizza/{{pizza.id}}/" class="btn btn-danger">Delete</a>
+                </td>
+                <td style="text-align: center; padding-bottom: 5px; padding-top: 5px; width: 120px;">
+                    <a href="/updatepizza/{{pizza.id}}/" class="btn btn-primary">Update</a>
+                </td>
+            </tr>
+            {% endfor %}           
+
+        </table>
+    </div>
+</div>
+{% endblock %}

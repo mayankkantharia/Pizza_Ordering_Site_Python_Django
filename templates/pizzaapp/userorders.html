@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="container-fluid" 
+    style="background-color: #2a2a2a; 
+    background-image: linear-gradient(to bottom, #2a2a2a, #2C3A47,#6c757d);
+    background-size: 100% 100%; 
+    background-repeat: no-repeat;
+    padding-bottom: 20px;">
+    <h1 style="text-align: center; color: white; padding-top: 20px;">My Ordered Items</h1>
+    {% for order in orders %}
+    <div class="alert alert-secondary" 
+        style="margin: auto; margin-top: 20px; 
+        width: auto; min-width: 250px; max-width: 900px;" role="alert">
+        <p>Username&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; :&nbsp; &nbsp; {{order.username}}</p>
+        <p>Phone number &nbsp;:&nbsp; &nbsp; {{order.phoneno}}</p>
+        <p>Address &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; :&nbsp; &nbsp; {{order.address}}</p>
+        <p>Ordered Items &nbsp; :&nbsp; &nbsp; {{order.ordereditems}}</p>
+        <p>Order Status &nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; &nbsp; {{order.status}}</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
